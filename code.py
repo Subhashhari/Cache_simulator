@@ -30,7 +30,6 @@ class Cache:
         self.no_of_offset_bits = int(log2(self.block_size))
         self.no_of_tag_bits = 32 - self.no_of_ind_bits - self.no_of_offset_bits
         self.hit_count = 0
-        self.time = 0
         self.miss_count = 0
         self.cache = [[Block('0'*self.no_of_tag_bits, False) for i in range(self.associativity)] for j in range(self.sets)]
 
@@ -54,7 +53,6 @@ class Cache:
                 self.lru_handling(index, True, block.lru_counter)
                 return True
         self.miss_count += 1
-        self.time += 10
         self.evictor(index, tag, offset)
         self.lru_handling(index, False)
         return False
@@ -359,20 +357,6 @@ def partd():
             print()
             dfs.append(df)
     plot('Associativity', 'Hit Rate','Associativity vs Hit Rate', dfs,'Associativity vs Hit Rate')
-def parte():
-    cache_sizes = [2 ** i for i in range(5, 13)]
-    times = []
-    for cache_size in cache_sizes:
-        cache1 = Cache(cache_size, 1, 4)
-        with open("gcc.trace", 'r') as file:
-            for line in file:
-                address_hex = line.split()[1][2:]
-                address_bin = hextobin(address_hex)
-                cache1.check(address_bin)
-        times.append(cache1.time)
-        
-    print(times)
-
 
 def main():
     """
