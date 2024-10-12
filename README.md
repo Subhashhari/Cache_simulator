@@ -79,5 +79,5 @@ In Part D, the associativity is varied (from direct-mapped to fully associative)
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/cache-simulation.git
+   git clone https://github.com/Subhashhari/cache-simulation.git
    cd cache-simulation
